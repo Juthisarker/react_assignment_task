@@ -51,7 +51,7 @@ const AddTask = ({ onAdd }) => {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Task</label>
+        <label>Title</label>
         <input
           type="text"
           placeholder="Calculation Title"

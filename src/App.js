@@ -2,8 +2,11 @@ import Header from "./components/Header";
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
 import { useState, useEffect } from 'react';
-const App =() => {
+import socketIO from 'socket.io-client';
 
+const ws = 'http://localhost:5000';
+
+const App =() => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(()=>{
@@ -12,6 +15,7 @@ const App =() => {
             setTasks(tasksFromServer);
      }
      getTask();
+     socketIO(ws);
   }, []);
 
   const fetchTasks = async () => {
@@ -22,20 +26,13 @@ const App =() => {
     return data;
   }
   const addTask = async(task) => {
-     console.log('tasssssssssssk'+task);
-    // const formData = new FormData();
-		// formData.append('File', task.file);
-    // console.log(formData);
-   
-    // const data = await res.json();
 
-    // 
   }
   return (
     <div className="container">
        <Header />
-       <AddTask onAdd={addTask}/>
        {tasks.length > 0 ? (<Tasks tasks = {tasks}/>) : ('No Tasks to show' )}
+       <AddTask onAdd={addTask}/>
     </div>
   );
 }
