@@ -4,18 +4,21 @@ import AddTask from './components/AddTask';
 import { useState, useEffect } from 'react';
 import socketIO from 'socket.io-client';
 
-const ws = 'http://localhost:5000';
+//const ws = 'http://localhost:5000';
 
 const App =() => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(()=>{
+    const id = setInterval(() => {
      const getTask = async () =>{
           const tasksFromServer = await fetchTasks();
             setTasks(tasksFromServer);
      }
      getTask();
-     socketIO(ws);
+    },8000);
+    return () => clearInterval(id);
+  //   socketIO(ws);
   }, []);
 
   const fetchTasks = async () => {
